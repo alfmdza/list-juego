@@ -1,0 +1,78 @@
+<html>
+
+<body>
+    <list-juego numero='24'></list-juego>
+</body>
+
+</html>
+<script>
+    class listJuego extends HTMLElement {
+        constructor() {
+            super();
+        }
+
+        connectedCallback() {
+            console.log('Load NuevoElementoWeb agregado');  
+        }
+
+        disconnectedCallback() {
+            console.log('Removiendo NuevoElementoWeb');
+        }
+
+        attributeChangedCallback(nameAtributte, oldValue, newValue) {
+            console.log('Cambian propiedades', nameAtributte, oldValue, newValue);
+            this.shadow = this.attachShadow({ mode: 'open' });
+            this.arregloNum = [];
+            if(nameAtributte === 'numero'){
+                //this.list.textContent=newValue;
+                let min = 1; 
+                let max = newValue;
+                let random = Math.floor(Math.random() * max) + min; 
+                //console.log('Random Num : ' + random );
+                for(let i = 1; i <= newValue; i++){
+                	this.list = document.createElement('button');
+                	this.list.value = i;
+                	this.list.textContent='-';
+                	this.list.addEventListener('click', () => this.verifica(i, this.arregloNum, random));
+                	this.shadow.appendChild(this.list);
+                	//console.log(i);
+                	this.arregloNum.push(this.list);
+                }
+            }
+            //console.log(this.arregloNum);               
+        }
+
+        verifica(i, arregloNum,random){
+            console.log("RANDOM:  "+random);
+            //console.log(this.shadow.children);
+        	//console.log("entre  "+ arregloNum);
+            //console.log("    i:  " +i);
+        	for(let j=1; j<=arregloNum.length; j++){
+                //console.log(this.shadow.children[i-1].textContent);
+                //console.log(arregloNum[j-1]);
+                //console.log(arregloNum[j-1]);
+                if(this.arregloNum[i-1].textContent === '-' && (i-1) === (random-1)){
+                    this.arregloNum[i-1].textContent=i
+                    this.arregloNum[i-1].setAttribute("style", "background-color: green;");
+                    setTimeout(function(){
+                        alert("Congratulation! You are the winner!");
+                        location.reload(); 
+                        }, 500);
+                    
+                }else if(this.arregloNum[i-1].textContent === '-' && (i-1) !== (random-1)){
+                    this.arregloNum[i-1].textContent=i
+                    this.arregloNum[i-1].setAttribute("style", "background-color: red;");
+                }
+                //console.log(arregloNum[i-1]);
+        	}
+            //console.log("entre  "+ arregloNum);
+        }
+
+        static get observedAttributes() {
+            return ['numero'];
+        }
+    }
+
+    customElements.define('list-juego', listJuego);
+
+</script>
