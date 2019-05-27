@@ -12,7 +12,24 @@
         }
 
         connectedCallback() {
-            console.log('Load NuevoElementoWeb agregado'); 
+            //this.shadow = this.attachShadow({ mode: 'open' });
+            /*console.log('Load NuevoElementoWeb agregado');
+            console.log(this.getAttribute('numero'))
+            this.initNum =this.getAttribute('numero')
+            this.arregloNum = [];
+            this.shadow = this.attachShadow({ mode: 'open' });
+            let min = 1; 
+            let max = this.initNum;
+            let random = Math.floor(Math.random() * max) + min;
+            console.log('Random Num : ' + random );  
+            for(let i = 1; i <= this.getAttribute('numero'); i++){
+                	this.list = document.createElement('button');
+                	this.list.value = i;
+                	this.list.textContent='-';
+                	this.list.addEventListener('click', () => this.verifica(i, this.arregloNum, random));
+                	this.shadow.appendChild(this.list);
+                	this.arregloNum.push(this.list);
+                }*/
         }
 
         disconnectedCallback() {
@@ -21,7 +38,10 @@
 
         attributeChangedCallback(nameAtributte, oldValue, newValue) {
             console.log('Cambian propiedades', nameAtributte, oldValue, newValue);
+            
+            //this.shadow.innerHTML = '';
             this.shadow = this.attachShadow({ mode: 'open' });
+            //this.shadow = this.attachShadow({ mode: 'open' });
             this.arregloNum = [];
             if(nameAtributte === 'numero'){
                 //this.list.textContent=newValue;
@@ -53,7 +73,7 @@
                     setTimeout(function(){
                         alert('Congratulation! You are the winner!');
                         location.reload(); 
-                        }, 500);
+                        }, 100);
                     
                 }else if(this.arregloNum[i-1].textContent === '-' && (i-1) !== (random-1)){
                     this.arregloNum[i-1].textContent = i;
