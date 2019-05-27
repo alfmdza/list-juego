@@ -12,7 +12,7 @@
         }
 
         connectedCallback() {
-            console.log('Load NuevoElementoWeb agregado');  
+            console.log('Load NuevoElementoWeb agregado'); 
         }
 
         disconnectedCallback() {
@@ -28,14 +28,13 @@
                 let min = 1; 
                 let max = newValue;
                 let random = Math.floor(Math.random() * max) + min; 
-                //console.log('Random Num : ' + random );
+                console.log('Random Num : ' + random );
                 for(let i = 1; i <= newValue; i++){
                 	this.list = document.createElement('button');
                 	this.list.value = i;
                 	this.list.textContent='-';
                 	this.list.addEventListener('click', () => this.verifica(i, this.arregloNum, random));
                 	this.shadow.appendChild(this.list);
-                	//console.log(i);
                 	this.arregloNum.push(this.list);
                 }
             }
@@ -44,12 +43,10 @@
 
         verifica(i, arregloNum,random){
             console.log("RANDOM:  "+random);
-            //console.log(this.shadow.children);
         	//console.log("entre  "+ arregloNum);
             //console.log("    i:  " +i);
         	for(let j=1; j<=arregloNum.length; j++){
                 //console.log(this.shadow.children[i-1].textContent);
-                //console.log(arregloNum[j-1]);
                 //console.log(arregloNum[j-1]);
                 if(this.arregloNum[i-1].textContent === '-' && (i-1) === (random-1)){
                     this.arregloNum[i-1].textContent=i
